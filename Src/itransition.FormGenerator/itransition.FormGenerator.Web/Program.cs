@@ -1,8 +1,12 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using itransition.FormGenerator.Web;
 using itransition.FormGenerator.Web.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
+using System.Reflection;
 
 #region Bootstrap Logger Configuration
 var configuration = new ConfigurationBuilder()
@@ -20,15 +24,26 @@ try
 
     var builder = WebApplication.CreateBuilder(args);
 
+    var connectionString = configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+    var migrationAssembly = Assembly.GetExecutingAssembly().FullName;
+
     #region Serilog General Configuration
     builder.Host.UseSerilog((ctx, lc) => lc
         .MinimumLevel.Debug()
         .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
         .Enrich.FromLogContext()
         .ReadFrom.Configuration(builder.Configuration));
+    #endregion    
+
+    #region AutoFac
+    builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+    builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
+    {
+        containerBuilder.RegisterModule(new WebModule(connectionString, migrationAssembly));
+    });
     #endregion
 
-    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlServer(connectionString));
     builder.Services.AddDatabaseDeveloperPageExceptionFilter();
