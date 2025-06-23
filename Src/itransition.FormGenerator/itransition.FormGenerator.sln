@@ -5,6 +5,12 @@ VisualStudioVersion = 17.14.36212.18
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "itransition.FormGenerator.Web", "itransition.FormGenerator.Web\itransition.FormGenerator.Web.csproj", "{F9FD647A-133C-4416-99EE-ED8F8DCD516D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "itransition.FormGenerator.Domain", "itransition.FormGenerator.Domain\itransition.FormGenerator.Domain.csproj", "{02711EB4-6A6D-43A4-AD50-E9282381F97A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "itransition.FormGenerator.Application", "itransition.FormGenerator.Application\itransition.FormGenerator.Application.csproj", "{DEDD0A27-895B-4E9C-85A0-DC65A02FFDC2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "itransition.FormGenerator.Infrastructure", "itransition.FormGenerator.Infrastructure\itransition.FormGenerator.Infrastructure.csproj", "{5AB0529E-E1B6-4DC2-8600-EB35E3592DC5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +21,18 @@ Global
 		{F9FD647A-133C-4416-99EE-ED8F8DCD516D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9FD647A-133C-4416-99EE-ED8F8DCD516D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9FD647A-133C-4416-99EE-ED8F8DCD516D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02711EB4-6A6D-43A4-AD50-E9282381F97A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02711EB4-6A6D-43A4-AD50-E9282381F97A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02711EB4-6A6D-43A4-AD50-E9282381F97A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02711EB4-6A6D-43A4-AD50-E9282381F97A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEDD0A27-895B-4E9C-85A0-DC65A02FFDC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEDD0A27-895B-4E9C-85A0-DC65A02FFDC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEDD0A27-895B-4E9C-85A0-DC65A02FFDC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEDD0A27-895B-4E9C-85A0-DC65A02FFDC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AB0529E-E1B6-4DC2-8600-EB35E3592DC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AB0529E-E1B6-4DC2-8600-EB35E3592DC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AB0529E-E1B6-4DC2-8600-EB35E3592DC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AB0529E-E1B6-4DC2-8600-EB35E3592DC5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
