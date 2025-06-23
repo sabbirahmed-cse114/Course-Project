@@ -1,0 +1,37 @@
+name: Deploy to MonsterASP
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build project
+      run: dotnet build --no-restore --configuration Release
+
+    - name: Publish project
+      run: dotnet publish ./itransition.FormGenerator.Web/itransition.FormGenerator.Web.csproj -c Release -o publish_output
+
+    - name: FTP Deploy to MonsterASP
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        local-dir: publish_output
+        server-dir: /wwwroot/
