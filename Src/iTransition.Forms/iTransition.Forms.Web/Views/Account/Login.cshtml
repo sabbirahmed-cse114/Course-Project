@@ -1,0 +1,70 @@
+﻿@model SignInModel
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+<div class="row gx-lg-5 align-items-center mb-5">
+    <div class="col-lg-7 mb-3" style="z-index: 10">
+        <h1 class="my-3 display-5 fw-bold ls-tight" style="color: #050057">
+            iTransition Forms<br />
+            <span class="text-info">Smart Form Building Platform</span>
+        </h1>
+        <p class="mb-4 text-dark opacity-100" style="text-align:justify;">
+            Build. Share. Analyze. With iTransition Forms by iTransition
+        </p>
+    </div>
+
+    <div class="col-lg-4 mb-5 mt-5 mb-lg-0 position-relative ">
+        <div class="card card-background">
+            <div class="card-body px-4 py-3 px-md-5">
+                <form id="loginForm" asp-route-returnUrl="@Model.ReturnUrl" method="post"
+                      asp-antiforgery="true" asp-action="Login" asp-controller="Account">
+                    <h2 class="text-light text-center">Log In</h2>
+                    <hr />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="UserName" class="form-control" autocomplete="username" aria-required="true" placeholder="user name" />
+                        <label asp-for="UserName" class="form-label">User name</label>
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
+                        <label asp-for="Password" class="form-label">Password</label>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="checkbox mb-3">
+                        <input class="form-check-input" asp-for="RememberMe" />
+                        <label asp-for="RememberMe" class="form-label text-light">
+                        </label>
+                    </div>
+                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-info text-light">Login</button>
+                </form>
+                <div class="mt-4">
+                    <p class="text-light">
+                        Don't' have an account?
+                        <a asp-controller="Account" asp-action="Register"
+                           asp-route-returnUrl="@Model.ReturnUrl" class="text-white-50 fw-bold">Register</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .card-background {
+            background-color: #020024;
+        }
+
+        .margin-top {
+            margin-top: 100px;
+        }
+    </style>
+}
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
