@@ -19,13 +19,13 @@ jobs:
         dotnet-version: '8.0.x'
 
     - name: Restore dependencies
-      run: dotnet restore Src/itransition.FormGenerator/itransition.FormGenerator.sln
+      run: dotnet restore Src/iTransition.Forms/iTransition.Forms.sln
 
     - name: Build project
-      run: dotnet build Src/itransition.FormGenerator/itransition.FormGenerator.sln --configuration Release
+      run: dotnet build Src/iTransition.Forms/iTransition.Forms.sln --configuration Release
 
     - name: Publish project
-      run: dotnet publish Src/itransition.FormGenerator/itransition.FormGenerator.Web/itransition.FormGenerator.Web.csproj -c Release -o publish_output
+      run: dotnet publish Src/iTransition.Forms/iTransition.Forms.Web/iTransition.Forms.Web.csproj -c Release -o publish_output
 
     - name: FTP Deploy to MonsterASP
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
