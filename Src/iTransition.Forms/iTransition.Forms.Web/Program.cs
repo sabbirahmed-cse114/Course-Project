@@ -1,8 +1,8 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using iTransition.Forms.Infrastructure;
 using iTransition.Forms.Infrastructure.Identity;
 using iTransition.Forms.Web;
-using iTransition.Forms.Web.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;

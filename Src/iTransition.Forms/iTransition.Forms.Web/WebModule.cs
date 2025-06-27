@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using iTransition.Forms.Web.Data;
+using iTransition.Forms.Infrastructure;
 
 namespace iTransition.Forms.Web
 {
