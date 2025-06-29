@@ -1,5 +1,10 @@
 ﻿using Autofac;
+using iTransition.Forms.Application;
+using iTransition.Forms.Application.Services;
+using iTransition.Forms.Domain.RepositoryContracts;
 using iTransition.Forms.Infrastructure;
+using iTransition.Forms.Infrastructure.Repositories;
+using iTransition.Forms.Infrastructure.UnitOfWorks;
 
 namespace iTransition.Forms.Web
 {
@@ -7,6 +12,18 @@ namespace iTransition.Forms.Web
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<TopicManagementService>()
+                .As<ITopicManagementService>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<TopicRepository>()
+                .As<ITopicRepository>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<FormsUnitOfWork>()
+                .As<IFormsUnitOfWork>()
+                .InstancePerLifetimeScope();
+
             builder.RegisterType<ApplicationDbContext>().AsSelf()
                 .WithParameter("connectionString", connectionString)
                 .WithParameter("migrationAssembly", migrationAssembly)

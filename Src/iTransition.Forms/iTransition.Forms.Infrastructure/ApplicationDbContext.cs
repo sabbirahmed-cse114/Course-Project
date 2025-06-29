@@ -60,6 +60,41 @@ namespace iTransition.Forms.Infrastructure
                     Name = "Other"
                 }
             );
+            builder.Entity<ApplicationUser>()
+                .HasData
+                (
+                    new ApplicationUser
+                    {
+                        Id = Guid.Parse("41c1f025-c383-44bb-99d3-64a93dc932f9"),
+                        UserName = "admin",
+                        NormalizedUserName = "ADMIN",
+                        PasswordHash = "AQAAAAIAAYagAAAAEJvlP7iT7x94GkCsdqJRk0qGdGTywCXDjEP57/J0lodU+Z2mFSPoU2Trb20dkgYRQA==",
+                        FullName = "Admin",
+                        SecurityStamp = "354FC657-CA80-458A-8719-ED65269683AD",
+                        ConcurrencyStamp = "2B157DA1-B4A6-4CAD-8CCE-F5BD6CB1B9AB"
+                    }
+                );
+            builder.Entity<ApplicationRole>()
+                .HasData
+                (
+                    new ApplicationRole
+                    {
+                        Id = Guid.Parse("a83f3b24-cb63-4ec4-bc80-ef4eaaba047d"),
+                        Name = "Admin",
+                        NormalizedName = "ADMIN",
+                        ConcurrencyStamp = "85B8C5A1-9792-4326-9AE8-06376CCD638C"
+                    }
+                );
+            builder.Entity<ApplicationUserRole>()
+                .HasData
+                (
+                    new ApplicationUserRole
+                    {
+                        RoleId = Guid.Parse("a83f3b24-cb63-4ec4-bc80-ef4eaaba047d"),
+                        UserId = Guid.Parse("41c1f025-c383-44bb-99d3-64a93dc932f9")
+                    }
+                );
+            base.OnModelCreating(builder);
         }
         public DbSet<Topic> Topics { get; set; }
     }

@@ -44,6 +44,10 @@ try
     });
     #endregion
 
+    #region AutoMapper Configuration
+    builder.Services.AddAutoMapper(typeof(WebProfile).Assembly);
+    #endregion
+
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlServer(connectionString, (x) => x.MigrationsAssembly(migrationAssembly)));
 
