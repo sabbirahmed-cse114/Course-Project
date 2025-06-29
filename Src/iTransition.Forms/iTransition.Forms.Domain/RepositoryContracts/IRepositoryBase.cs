@@ -8,5 +8,8 @@ namespace iTransition.Forms.Domain.RepositoryContracts
         where TKey : IComparable
     {
         Task AddAsync(TEntity entity);
+        int GetCount(Expression<Func<TEntity, bool>> filter = null);
+        Task RemoveAsync(TKey id);
+        Task RemoveAsync(TEntity entityToDelete);
     }
 }

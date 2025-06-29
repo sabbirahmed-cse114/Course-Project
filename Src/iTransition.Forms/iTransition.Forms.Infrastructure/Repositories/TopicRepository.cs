@@ -1,4 +1,5 @@
-﻿using iTransition.Forms.Domain.Entities;
+﻿using iTransition.Forms.Domain;
+using iTransition.Forms.Domain.Entities;
 using iTransition.Forms.Domain.RepositoryContracts;
 using System.Data.SqlClient;
 
@@ -18,6 +19,15 @@ namespace iTransition.Forms.Infrastructure.Repositories
             {
                 return GetCount(x => x.Name.Equals(name)) > 0;
             }
+        }
+
+        public async Task<(IList<Topic> data, int total, int totalDisplay)> GetPagedTopicsAsync(int pageIndex, int pageSize, DataTablesSearch search, string? order)
+        {
+            var searchText = search.Value;
+            if (string.IsNullOrWhiteSpace(searchText))
+                return await GetDynamicAsync(null, order, null, pageIndex, pageSize, true);
+
+            return await GetDynamicAsync(x => x.Name.Contains(searchText), order, null, pageIndex, pageSize, true);
         }
     }
 }

@@ -1,0 +1,27 @@
+﻿@using iTransition.Forms.Web.Models.Topic
+@model TopicCreateModel
+
+<div class="modal fade" id="createTopicModal" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header default-background-color text-center align-items-center">
+                <h4 class="modal-title text-light w-100">
+                    Create a new topic
+                </h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form asp-antiforgery="true" asp-area="" asp-controller="Topic"
+                      asp-action="Create" method="post" id="create-form">
+                    <div class="form-group">
+                        <input asp-for="Name" type="text" class="form-control" id="name" name="name" placeholder="Name">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-sm btn-outline-info px-3">Submit</button>
+                        <button type="button" id="modal_close" class="btn btn-sm btn-outline-danger px-3" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

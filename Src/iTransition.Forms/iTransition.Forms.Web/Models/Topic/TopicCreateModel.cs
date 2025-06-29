@@ -1,4 +1,4 @@
-﻿namespace iTransition.Forms.Web.Models
+﻿namespace iTransition.Forms.Web.Models.Topic
 {
     public class TopicCreateModel
     {

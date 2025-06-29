@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using iTransition.Forms.Domain.Entities;
-using iTransition.Forms.Web.Models;
+using iTransition.Forms.Web.Models.Topic;
 
 namespace iTransition.Forms.Web
 {

@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using iTransition.Forms.Application.Services;
-using iTransition.Forms.Infrastructure.Extensions;
 using iTransition.Forms.Domain.Entities;
+using iTransition.Forms.Infrastructure.Extensions;
 using iTransition.Forms.Web.Models;
+using iTransition.Forms.Web.Models.Topic;
 using Microsoft.AspNetCore.Mvc;
+using System.Web;
 
 namespace iTransition.Forms.Web.Controllers
 {
@@ -25,12 +27,30 @@ namespace iTransition.Forms.Web.Controllers
             return View();
         }
 
-        [HttpGet]
-        public IActionResult Create()
+        [HttpPost]
+        public async Task<JsonResult> GetTopicJsonData([FromBody] TopicListModel model)
         {
-            var model = new TopicCreateModel();
-            return View(model);
+            var result = await _topicManagementService.GetTopicsAsync(
+                model.PageIndex,
+                model.PageSize,
+                model.Search,
+                model.FormatSortExpression("Name"));
+
+            var topicJsonData = new
+            {
+                recordsTotal = result.total,
+                recordsFiltered = result.totalDisplay,
+                data = (from records in result.data
+                        select new string[]
+                            {
+                                HttpUtility.HtmlEncode(records.Name),
+                                records.Id.ToString()
+                            }
+                        ).ToArray()
+            };
+            return Json(topicJsonData);
         }
+
         [HttpPost]
         public async Task<IActionResult> Create(TopicCreateModel model)
         {
@@ -51,6 +71,7 @@ namespace iTransition.Forms.Web.Controllers
                 }
                 catch (Exception ex)
                 {
+                    _logger.LogInformation(ex, "Topic created failed...");
                     TempData.Put("ResponseMessage", new ResponseModel()
                     {
                         Message = "Topic creation failed",
@@ -60,6 +81,30 @@ namespace iTransition.Forms.Web.Controllers
                 }
             }
             return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            try
+            {
+                await _topicManagementService.DeleteTopicAsync(id);
+                TempData.Put("ResponseMessage", new ResponseModel
+                {
+                    Message = "Topic deleted successfully",
+                    Type = ResponseTypes.Success
+                });
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation(ex, "Topic deleted failed...");
+                TempData.Put("ResponseMessage", new ResponseModel
+                {
+                    Message = "Topic Delete failed",
+                    Type = ResponseTypes.Danger
+                });
+                return RedirectToAction("Index");
+            }
         }
     }
 }
