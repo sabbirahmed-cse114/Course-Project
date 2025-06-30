@@ -32,6 +32,35 @@ namespace iTransition.Forms.Infrastructure
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Tag>().HasData
+            (
+                new Tag
+                {
+                    Id = Guid.Parse("F91D9F76-694C-42D5-AFCA-69252DC86EFF"),
+                    Name = "General",
+                },
+                new Tag
+                {
+                    Id = Guid.Parse("24A44820-CFF8-4509-AA16-A1F4C5BB0BD5"),
+                    Name = "Quiz",
+                },
+                new Tag
+                {
+                    Id = Guid.Parse("4DB86802-9AEA-4E7E-801A-B05A2463BE39"),
+                    Name = "Developer",
+                },
+                new Tag
+                {
+                    Id = Guid.Parse("0FADBF4C-F8CF-4937-86A2-0CA33FEB33F9"),
+                    Name = "Survey"
+                },
+                new Tag
+                {
+                    Id = Guid.Parse("0EF5E8C0-EA9E-458D-B82F-9BD361F6EAE5"),
+                    Name = "Other"
+                }
+            );
+
             builder.Entity<Topic>().HasData
             (
                 new Topic
@@ -96,6 +125,7 @@ namespace iTransition.Forms.Infrastructure
                 );
             base.OnModelCreating(builder);
         }
+        public DbSet<Tag> Tags { get; set; }
         public DbSet<Topic> Topics { get; set; }
     }
 }
