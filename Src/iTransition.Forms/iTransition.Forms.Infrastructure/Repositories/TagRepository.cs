@@ -4,11 +4,11 @@ using iTransition.Forms.Domain.RepositoryContracts;
 
 namespace iTransition.Forms.Infrastructure.Repositories
 {
-    public class TopicRepository : Repository<Topic, Guid>, ITopicRepository
+    public class TagRepository : Repository<Tag, Guid>, ITagRepository
     {
-        public TopicRepository(ApplicationDbContext context) : base(context) { }
+        public TagRepository(ApplicationDbContext context) : base(context) { }
 
-        public bool IsTopicNameDuplicate(string name, Guid? id = null)
+        public bool IsTagNameDuplicate(string name, Guid? id = null)
         {
             if (id.HasValue)
             {
@@ -20,7 +20,7 @@ namespace iTransition.Forms.Infrastructure.Repositories
             }
         }
 
-        public async Task<(IList<Topic> data, int total, int totalDisplay)> GetPagedTopicsAsync(int pageIndex, int pageSize, DataTablesSearch search, string? order)
+        public async Task<(IList<Tag> data, int total, int totalDisplay)> GetPagedTagsAsync(int pageIndex, int pageSize, DataTablesSearch search, string? order)
         {
             var searchText = search.Value;
             if (string.IsNullOrWhiteSpace(searchText))

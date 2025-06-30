@@ -6,5 +6,6 @@ namespace iTransition.Forms.Application
     public interface IFormsUnitOfWork : IUnitOfWork
     {
         public ITopicRepository TopicRepository { get; }
+        public ITagRepository TagRepository { get; }
     }
 }
