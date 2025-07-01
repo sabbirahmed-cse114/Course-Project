@@ -20,7 +20,10 @@
 
   <ItemGroup>
     <Compile Include="Areas\Admin\Controllers\AppController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TopicController.cs" />
     <Compile Include="Areas\Admin\Models\DashboardModel.cs" />
+    <Compile Include="Areas\Admin\Models\Topic\TopicCreateModel.cs" />
+    <Compile Include="Areas\Admin\Models\Topic\TopicListModel.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -58,6 +61,8 @@
 
   <ItemGroup>
     <None Include="Areas\Admin\Views\Shared\_Layout.cshtml.css" />
+    <Content Include="Areas\Admin\Views\Topic\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Topic\_CreateTopicForm.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

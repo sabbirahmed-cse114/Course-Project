@@ -1,14 +1,13 @@
 ﻿using AutoMapper;
 using iTransition.Forms.Application.Services;
 using iTransition.Forms.Domain.Entities;
-using iTransition.Forms.Infrastructure.Extensions;
-using iTransition.Forms.Web.Models;
-using iTransition.Forms.Web.Models.Topic;
+using iTransition.Forms.Web.Areas.Admin.Models.Topic;
 using Microsoft.AspNetCore.Mvc;
 using System.Web;
 
-namespace iTransition.Forms.Web.Controllers
+namespace iTransition.Forms.Web.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class TopicController : Controller
     {
         private readonly ILogger<TopicController> _logger;
@@ -61,22 +60,13 @@ namespace iTransition.Forms.Web.Controllers
                 try
                 {
                     await _topicManagementService.CreateNewTopicAsync(topic);
-
-                    TempData.Put("ResponseMessage", new ResponseModel()
-                    {
-                        Message = "Topic created Successfully",
-                        Type = ResponseTypes.Success
-                    });
+                    TempData["SuccessMessage"] = "Create topic successfully.";
                     return RedirectToAction("Index");
                 }
                 catch (Exception ex)
                 {
                     _logger.LogInformation(ex, "Topic created failed...");
-                    TempData.Put("ResponseMessage", new ResponseModel()
-                    {
-                        Message = "Topic creation failed",
-                        Type = ResponseTypes.Danger
-                    });
+                    TempData["ErrorMessage"] = "Failed to created topic.";
                     return RedirectToAction("Index");
                 }
             }
@@ -88,21 +78,13 @@ namespace iTransition.Forms.Web.Controllers
             try
             {
                 await _topicManagementService.DeleteTopicAsync(id);
-                TempData.Put("ResponseMessage", new ResponseModel
-                {
-                    Message = "Topic deleted successfully",
-                    Type = ResponseTypes.Success
-                });
+                TempData["SuccessMessage"] = "Delete topic successfully.";
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
                 _logger.LogInformation(ex, "Topic deleted failed...");
-                TempData.Put("ResponseMessage", new ResponseModel
-                {
-                    Message = "Topic Delete failed",
-                    Type = ResponseTypes.Danger
-                });
+                TempData["ErrorMessage"] = "Failed to delete topic.";
                 return RedirectToAction("Index");
             }
         }
