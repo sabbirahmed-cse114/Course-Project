@@ -20,8 +20,11 @@
 
   <ItemGroup>
     <Compile Include="Areas\Admin\Controllers\AppController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TagController.cs" />
     <Compile Include="Areas\Admin\Controllers\TopicController.cs" />
     <Compile Include="Areas\Admin\Models\DashboardModel.cs" />
+    <Compile Include="Areas\Admin\Models\Tag\TagCreateModel.cs" />
+    <Compile Include="Areas\Admin\Models\Tag\TagListModel.cs" />
     <Compile Include="Areas\Admin\Models\Topic\TopicCreateModel.cs" />
     <Compile Include="Areas\Admin\Models\Topic\TopicListModel.cs" />
   </ItemGroup>
@@ -61,6 +64,8 @@
 
   <ItemGroup>
     <None Include="Areas\Admin\Views\Shared\_Layout.cshtml.css" />
+    <Content Include="Areas\Admin\Views\Tag\_CreateTagForm.cshtml" />
+    <Content Include="Areas\Admin\Views\Tag\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Topic\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Topic\_CreateTopicForm.cshtml" />
   </ItemGroup>

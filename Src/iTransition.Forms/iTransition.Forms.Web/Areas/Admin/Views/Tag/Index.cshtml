@@ -1,0 +1,60 @@
+﻿@{
+    ViewData["Title"] = "Tag";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <partial name="./_CreateTagForm.cshtml" />
+        <partial name="~/Views/Shared/_DeleteModal.cshtml" />
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-10">
+                            <h3 class="card-title">Tag List</h3>
+                        </div>
+                        <div class="col-sm-12 col-md-2 d-flex justify-content-end">
+                            <a data-bs-toggle="modal" data-bs-target="#createTagModal" asp-area="Admin" asp-controller="Tag" asp-action="Create" class="btn btn-sm btn-info">
+                                <i class="bi bi-plus"></i> Add
+                            </a>
+                        </div>
+                    </div>
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success">
+                            @TempData["SuccessMessage"]
+                        </div>
+                    }
+                    @if (TempData["ErrorMessage"] != null)
+                    {
+                        <div class="alert alert-danger">
+                            @TempData["ErrorMessage"]
+                        </div>
+                    }
+                </div>
+
+                <div class="card-body">
+                    <table id="tagTable" class="table table-sm table-hover">
+                        <thead class="table-header">
+                            <tr>
+                                <th class="col-11">Name</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section styles {
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" />
+}
+
+@section Scripts {
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/tagindex.js"></script>
+}

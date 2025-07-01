@@ -5,7 +5,7 @@ namespace iTransition.Forms.Application.Services
 {
     public interface ITagManagementService
     {
-        Task CreateNewTagAsync(Topic topic);
+        Task CreateNewTagAsync(Tag tag);
         Task<(IList<Tag> data, int total, int totalDisplay)> GetTagsAsync(
             int pageIndex, int pageSize, DataTablesSearch search, string? order);
         Task DeleteTagAsync(Guid id);

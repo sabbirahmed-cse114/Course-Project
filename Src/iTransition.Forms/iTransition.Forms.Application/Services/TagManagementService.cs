@@ -11,12 +11,12 @@ namespace iTransition.Forms.Application.Services
             _formsUnitOfWork = formsUnitOfWork;
         }
 
-        public async Task CreateNewTagAsync(Topic topic)
+        public async Task CreateNewTagAsync(Tag tag)
         {
-            var isDuplicateTag = _formsUnitOfWork.TopicRepository.IsTopicNameDuplicate(topic.Name);
+            var isDuplicateTag = _formsUnitOfWork.TopicRepository.IsTopicNameDuplicate(tag.Name);
             if (!isDuplicateTag)
             {
-                await _formsUnitOfWork.TopicRepository.AddAsync(topic);
+                await _formsUnitOfWork.TagRepository.AddAsync(tag);
                 await _formsUnitOfWork.SaveAsync();
             }
             else
@@ -33,7 +33,7 @@ namespace iTransition.Forms.Application.Services
 
         public async Task DeleteTagAsync(Guid id)
         {
-            await _formsUnitOfWork.TopicRepository.RemoveAsync(id);
+            await _formsUnitOfWork.TagRepository.RemoveAsync(id);
             await _formsUnitOfWork.SaveAsync();
         }
     }

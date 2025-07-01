@@ -1,0 +1,27 @@
+﻿@using iTransition.Forms.Web.Areas.Admin.Models.Tag
+@model TagCreateModel
+
+<div class="modal fade" id="createTagModal" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header default-background-color text-center align-items-center">
+                <h4 class="modal-title text-info w-100" id="exampleModalCenterTitle">
+                    Create a new tag
+                </h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form asp-antiforgery="true" asp-controller="Tag" asp-action="Create" method="post" id="create-form">
+                    <div class="mb-3">
+                        <input asp-for="Name" type="text" class="form-control" placeholder="Name" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-sm btn-outline-info px-3">Submit</button>
+                        <button type="button" id="modal_close" class="btn btn-sm btn-outline-danger px-3" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
