@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using iTransition.Forms.Web.Data;
+using iTransition.Forms.Infrastructure;
 
 #nullable disable
 
@@ -21,6 +21,90 @@ namespace iTransition.Forms.Web.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("iTransition.Forms.Domain.Entities.Tag", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tags");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("f91d9f76-694c-42d5-afca-69252dc86eff"),
+                            Name = "General"
+                        },
+                        new
+                        {
+                            Id = new Guid("24a44820-cff8-4509-aa16-a1f4c5bb0bd5"),
+                            Name = "Quiz"
+                        },
+                        new
+                        {
+                            Id = new Guid("4db86802-9aea-4e7e-801a-b05a2463be39"),
+                            Name = "Developer"
+                        },
+                        new
+                        {
+                            Id = new Guid("0fadbf4c-f8cf-4937-86a2-0ca33feb33f9"),
+                            Name = "Survey"
+                        },
+                        new
+                        {
+                            Id = new Guid("0ef5e8c0-ea9e-458d-b82f-9bd361f6eae5"),
+                            Name = "Other"
+                        });
+                });
+
+            modelBuilder.Entity("iTransition.Forms.Domain.Entities.Topic", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Topics");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("f91d9f76-694c-42d5-afca-69252dc86eff"),
+                            Name = "Education"
+                        },
+                        new
+                        {
+                            Id = new Guid("24a44820-cff8-4509-aa16-a1f4c5bb0bd5"),
+                            Name = "Quiz"
+                        },
+                        new
+                        {
+                            Id = new Guid("4db86802-9aea-4e7e-801a-b05a2463be39"),
+                            Name = "Poll"
+                        },
+                        new
+                        {
+                            Id = new Guid("0fadbf4c-f8cf-4937-86a2-0ca33feb33f9"),
+                            Name = "Survey"
+                        },
+                        new
+                        {
+                            Id = new Guid("0ef5e8c0-ea9e-458d-b82f-9bd361f6eae5"),
+                            Name = "Other"
+                        });
+                });
 
             modelBuilder.Entity("iTransition.Forms.Infrastructure.Identity.ApplicationRole", b =>
                 {
@@ -48,6 +132,15 @@ namespace iTransition.Forms.Web.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("a83f3b24-cb63-4ec4-bc80-ef4eaaba047d"),
+                            ConcurrencyStamp = "85B8C5A1-9792-4326-9AE8-06376CCD638C",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        });
                 });
 
             modelBuilder.Entity("iTransition.Forms.Infrastructure.Identity.ApplicationRoleClaim", b =>
@@ -94,10 +187,7 @@ namespace iTransition.Forms.Web.Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
+                    b.Property<string>("FullName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -144,6 +234,23 @@ namespace iTransition.Forms.Web.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("41c1f025-c383-44bb-99d3-64a93dc932f9"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "2B157DA1-B4A6-4CAD-8CCE-F5BD6CB1B9AB",
+                            EmailConfirmed = false,
+                            FullName = "Admin",
+                            LockoutEnabled = false,
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJvlP7iT7x94GkCsdqJRk0qGdGTywCXDjEP57/J0lodU+Z2mFSPoU2Trb20dkgYRQA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "354FC657-CA80-458A-8719-ED65269683AD",
+                            TwoFactorEnabled = false,
+                            UserName = "admin"
+                        });
                 });
 
             modelBuilder.Entity("iTransition.Forms.Infrastructure.Identity.ApplicationUserClaim", b =>
@@ -204,6 +311,13 @@ namespace iTransition.Forms.Web.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = new Guid("41c1f025-c383-44bb-99d3-64a93dc932f9"),
+                            RoleId = new Guid("a83f3b24-cb63-4ec4-bc80-ef4eaaba047d")
+                        });
                 });
 
             modelBuilder.Entity("iTransition.Forms.Infrastructure.Identity.ApplicationUserToken", b =>
