@@ -1,8 +1,8 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using iTransition.Forms.Infrastructure;
 using iTransition.Forms.Infrastructure.Identity;
 using iTransition.Forms.Web;
-using iTransition.Forms.Web.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -44,6 +44,10 @@ try
     });
     #endregion
 
+    #region AutoMapper Configuration
+    builder.Services.AddAutoMapper(typeof(WebProfile).Assembly);
+    #endregion
+
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlServer(connectionString, (x) => x.MigrationsAssembly(migrationAssembly)));
 
@@ -76,6 +80,11 @@ try
     app.UseStaticFiles();
     app.UseRouting();
     app.UseAuthorization();
+
+    app.MapControllerRoute(
+            name: "areas",
+            pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+          );
 
     app.MapControllerRoute(
         name: "default",

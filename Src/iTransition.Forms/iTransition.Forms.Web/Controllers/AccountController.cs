@@ -56,8 +56,7 @@ namespace iTransition.Forms.Web.Controllers
                 {
                     UserName = model.UserName,
                     Email = model.Email,
-                    LastName = model.LastName,
-                    FirstName = model.FirstName,
+                    FullName = model.FirstName + " " + model.LastName,
                 };
 
                 var result = await _userManager.CreateAsync(user, model.Password);

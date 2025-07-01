@@ -21,6 +21,12 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore Src/iTransition.Forms/iTransition.Forms.sln
 
+    - name: Replace DB_CONNECTION in appsettings.Production.json
+      run: |
+        $content = Get-Content Src/iTransition.Forms/iTransition.Forms.Web/appsettings.Production.json
+        $content = $content -replace '\$\{DB_CONNECTION\}', '${{ secrets.DB_CONNECTION }}'
+        Set-Content -Path Src/iTransition.Forms/iTransition.Forms.Web/appsettings.Production.json -Value $content
+
     - name: Build project
       run: dotnet build Src/iTransition.Forms/iTransition.Forms.sln --configuration Release
 
