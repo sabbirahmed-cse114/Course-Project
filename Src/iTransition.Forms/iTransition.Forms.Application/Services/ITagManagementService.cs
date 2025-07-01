@@ -8,6 +8,8 @@ namespace iTransition.Forms.Application.Services
         Task CreateNewTagAsync(Tag tag);
         Task<(IList<Tag> data, int total, int totalDisplay)> GetTagsAsync(
             int pageIndex, int pageSize, DataTablesSearch search, string? order);
+        Task<Tag> GetTagAsync(Guid id);
+        Task UpdateTagAsync(Tag tag);
         Task DeleteTagAsync(Guid id);
     }
 }

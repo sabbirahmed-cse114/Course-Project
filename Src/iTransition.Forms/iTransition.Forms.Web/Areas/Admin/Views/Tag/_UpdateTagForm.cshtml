@@ -1,0 +1,28 @@
+﻿@using iTransition.Forms.Web.Areas.Admin.Models.Tag
+@model TagUpdateModel
+
+<section>
+    <div class="modal fade" id="updateTagModal" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header default-background-color text-center align-items-center">
+                    <h4 class="modal-title text-info w-100">Update Tag</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form asp-antiforgery="true" asp-area="Admin" asp-controller="Tag" asp-action="Update" method="post" id="update-form">
+                        <input type="hidden" asp-for="Id" id="updateId" />
+                        <div class="mb-3">
+                            <input asp-for="Name" type="text" id="UpdateName" class="form-control" placeholder="Name" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-sm btn-info">Submit</button>
+                            <button type="button" id="modal_close" class="btn btn-sm btn-danger" data-bs-dismiss="modal">Cancel</button>                       
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

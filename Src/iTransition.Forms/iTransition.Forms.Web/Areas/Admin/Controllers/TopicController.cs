@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using iTransition.Forms.Application.Services;
 using iTransition.Forms.Domain.Entities;
-using iTransition.Forms.Web.Areas.Admin.Models.Tag;
+using iTransition.Forms.Web.Areas.Admin.Models.Topic;
 using Microsoft.AspNetCore.Mvc;
 using System.Web;
 
@@ -27,7 +27,7 @@ namespace iTransition.Forms.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> GetTopicJsonData([FromBody] TagListModel model)
+        public async Task<JsonResult> GetTopicJsonData([FromBody] TopicListModel model)
         {
             var result = await _topicManagementService.GetTopicsAsync(
                 model.PageIndex,
@@ -51,7 +51,7 @@ namespace iTransition.Forms.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(TagCreateModel model)
+        public async Task<IActionResult> Create(TopicCreateModel model)
         {
             var topic = _mapper.Map<Topic>(model);
             topic.Id = Guid.NewGuid();

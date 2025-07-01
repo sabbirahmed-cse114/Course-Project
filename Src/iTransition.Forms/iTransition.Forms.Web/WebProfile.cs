@@ -11,6 +11,7 @@ namespace iTransition.Forms.Web
         {
             CreateMap<TopicCreateModel, Topic>().ReverseMap();
             CreateMap<TagCreateModel, Tag>().ReverseMap();
+            CreateMap<TagUpdateModel, Tag>().ReverseMap();
         }
     }
 }

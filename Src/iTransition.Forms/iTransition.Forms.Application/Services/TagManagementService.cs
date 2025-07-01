@@ -13,7 +13,7 @@ namespace iTransition.Forms.Application.Services
 
         public async Task CreateNewTagAsync(Tag tag)
         {
-            var isDuplicateTag = _formsUnitOfWork.TopicRepository.IsTopicNameDuplicate(tag.Name);
+            var isDuplicateTag = _formsUnitOfWork.TagRepository.IsTagNameDuplicate(tag.Name);
             if (!isDuplicateTag)
             {
                 await _formsUnitOfWork.TagRepository.AddAsync(tag);
@@ -29,6 +29,25 @@ namespace iTransition.Forms.Application.Services
         {
             return await _formsUnitOfWork.TagRepository.GetPagedTagsAsync(
                 pageIndex, pageSize, search, order);
+        }
+
+        public async Task<Tag> GetTagAsync(Guid id)
+        {
+            return await _formsUnitOfWork.TagRepository.GetByIdAsync(id);
+        }
+
+
+        public async Task UpdateTagAsync(Tag tag)
+        {
+            if (!_formsUnitOfWork.TagRepository.IsTagNameDuplicate(tag.Name, tag.Id))
+            {
+                await _formsUnitOfWork.TagRepository.UpdateAsync(tag);
+                await _formsUnitOfWork.SaveAsync();
+            }
+            else
+            {
+                throw new Exception("Tag name is duplicate");
+            }
         }
 
         public async Task DeleteTagAsync(Guid id)

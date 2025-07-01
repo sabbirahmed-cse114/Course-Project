@@ -24,7 +24,13 @@
                 className: "text-center",
                 render: function (data, type, row) {
                     return `
-                        <button type="button" class="btn show-bs-modal"
+                        <button type="button" class="btn btn-sm show-bs-modal"
+                            data-bs-toggle="modal" data-bs-target="#updateTagModal"
+                            value='${data}' data-name='${row[0]}' 
+                            data-description='${row[1]}' data-id='${data}' title="Update">
+                            <i class="bi bi-pencil-square text-info"></i>
+                        </button>
+                        <button type="button" class="btn btn-sm show-bs-modal"
                             data-bs-toggle="modal" data-bs-target="#delete-modal"
                             data-id='${data}' title="Delete">
                             <i class="bi bi-trash text-danger"></i>
@@ -36,7 +42,13 @@
 
     $('#tagTable').on('click', '.show-bs-modal', function () {
         let id = $(this).data("id");
+        let name = $(this).data("name");
+
         $("#deleteId").val(id);
         $("#delete-form").attr("action", "/Admin/Tag/Delete");
+
+        $("#updateId").val(id);
+        $("#UpdateName").val(name);
+        $("#update-form").attr("action", "/Admin/Tag/Update/{id}");
     });
 });

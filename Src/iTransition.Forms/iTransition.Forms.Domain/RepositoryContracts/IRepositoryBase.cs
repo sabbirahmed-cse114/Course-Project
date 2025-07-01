@@ -9,6 +9,8 @@ namespace iTransition.Forms.Domain.RepositoryContracts
     {
         Task AddAsync(TEntity entity);
         int GetCount(Expression<Func<TEntity, bool>> filter = null);
+        Task<TEntity> GetByIdAsync(TKey id);
+        Task UpdateAsync(TEntity entityToUpdate);
         Task RemoveAsync(TKey id);
         Task RemoveAsync(TEntity entityToDelete);
     }

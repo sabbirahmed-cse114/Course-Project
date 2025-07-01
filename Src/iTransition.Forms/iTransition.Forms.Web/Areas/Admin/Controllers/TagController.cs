@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
 using iTransition.Forms.Application.Services;
 using iTransition.Forms.Domain.Entities;
+using iTransition.Forms.Web.Areas.Admin.Models.Tag;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Web;
-using iTransition.Forms.Web.Areas.Admin.Models.Tag;
 
 namespace iTransition.Forms.Web.Areas.Admin.Controllers
 {
@@ -25,7 +26,7 @@ namespace iTransition.Forms.Web.Areas.Admin.Controllers
         {
             return View();
         }
-
+        [HttpPost]
         public async Task<JsonResult> GetTagJsonData([FromBody] TagListModel model)
         {
             var result = await _tagManagementService.GetTagsAsync(
@@ -71,6 +72,39 @@ namespace iTransition.Forms.Web.Areas.Admin.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Update(Guid id)
+        {
+            var tag = await _tagManagementService.GetTagAsync(id);
+            var model = _mapper.Map<TagUpdateModel>(tag);
+            return View(model);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(TagUpdateModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var tag = await _tagManagementService.GetTagAsync(model.Id);
+                tag = _mapper.Map(model, tag);
+
+                try
+                {
+                    await _tagManagementService.UpdateTagAsync(tag);
+                    TempData["SuccessMessage"] = "Tag updated successfully.";
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogInformation(ex, "Failed to delete tag...");
+                    TempData["ErrorMessage"] = "Failed to update tag.";
+                    return RedirectToAction("Index");
+                }
+            }
+            return RedirectToAction("Index");
+        }
+
 
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(Guid id)

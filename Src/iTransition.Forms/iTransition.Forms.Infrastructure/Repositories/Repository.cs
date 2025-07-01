@@ -84,6 +84,21 @@ namespace iTransition.Forms.Infrastructure.Repositories
             return (data, total, totalDisplay);
         }
 
+        public virtual async Task<TEntity> GetByIdAsync(TKey id)
+        {
+            return await _dbSet.FindAsync(id);
+        }
+
+
+        public virtual async Task UpdateAsync(TEntity entityToUpdate)
+        {
+            await Task.Run(() =>
+            {
+                _dbSet.Attach(entityToUpdate);
+                _dbContext.Entry(entityToUpdate).State = EntityState.Modified;
+            });
+        }
+
         public virtual async Task RemoveAsync(TKey id)
         {
             var entityToDelete = _dbSet.Find(id);

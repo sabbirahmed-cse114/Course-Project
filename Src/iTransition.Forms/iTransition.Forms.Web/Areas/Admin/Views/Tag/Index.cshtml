@@ -5,6 +5,7 @@
 <section class="content">
     <div class="container-fluid">
         <partial name="./_CreateTagForm.cshtml" />
+        <partial name="./_UpdateTagForm.cshtml" />
         <partial name="~/Views/Shared/_DeleteModal.cshtml" />
 
         <div class="row">
@@ -15,8 +16,8 @@
                             <h3 class="card-title">Tag List</h3>
                         </div>
                         <div class="col-sm-12 col-md-2 d-flex justify-content-end">
-                            <a data-bs-toggle="modal" data-bs-target="#createTagModal" asp-area="Admin" asp-controller="Tag" asp-action="Create" class="btn btn-sm btn-info">
-                                <i class="bi bi-plus"></i> Add
+                            <a data-bs-toggle="modal" data-bs-target="#createTagModal" asp-area="Admin" asp-controller="Tag" asp-action="Create" class="btn btn-sm btn-outline-info">
+                                <i class="bi bi-plus fs-4">Add</i>
                             </a>
                         </div>
                     </div>
