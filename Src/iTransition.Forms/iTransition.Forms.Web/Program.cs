@@ -1,8 +1,8 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using iTransition.Forms.Infrastructure;
 using iTransition.Forms.Infrastructure.Identity;
 using iTransition.Forms.Web;
-using iTransition.Forms.Web.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -25,7 +25,8 @@ try
 
     var builder = WebApplication.CreateBuilder(args);
 
-    var connectionString = configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+        ?? throw new InvalidOperationException("Connection string not found.");
     var migrationAssembly = Assembly.GetExecutingAssembly().FullName;
 
     #region Serilog General Configuration
@@ -42,6 +43,10 @@ try
     {
         containerBuilder.RegisterModule(new WebModule(connectionString, migrationAssembly));
     });
+    #endregion
+
+    #region AutoMapper Configuration
+    builder.Services.AddAutoMapper(typeof(WebProfile).Assembly);
     #endregion
 
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -76,6 +81,11 @@ try
     app.UseStaticFiles();
     app.UseRouting();
     app.UseAuthorization();
+
+    app.MapControllerRoute(
+            name: "areas",
+            pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+          );
 
     app.MapControllerRoute(
         name: "default",

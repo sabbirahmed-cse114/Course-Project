@@ -8,15 +8,68 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Admin\**" />
+    <Compile Remove="Areas\User\Data\**" />
+    <Content Remove="Areas\Admin\**" />
+    <Content Remove="Areas\User\Data\**" />
+    <EmbeddedResource Remove="Areas\Admin\**" />
+    <EmbeddedResource Remove="Areas\User\Data\**" />
+    <None Remove="Areas\Admin\**" />
+    <None Remove="Areas\User\Data\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Areas\Admin\Controllers\AppController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TagController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TopicController.cs" />
+    <Compile Include="Areas\Admin\Models\DashboardModel.cs" />
+    <Compile Include="Areas\Admin\Models\Tag\TagCreateModel.cs" />
+    <Compile Include="Areas\Admin\Models\Tag\TagListModel.cs" />
+    <Compile Include="Areas\Admin\Models\Tag\TagUpdateModel.cs" />
+    <Compile Include="Areas\Admin\Models\Topic\TopicCreateModel.cs" />
+    <Compile Include="Areas\Admin\Models\Topic\TopicListModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\_ViewImports.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="10.0.0" />
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.17" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.17" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.17" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
     <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Logs\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\App\Index.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Areas\Admin\Views\Shared\_Layout.cshtml.css" />
+    <Content Include="Areas\Admin\Views\Tag\_UpdateTagForm.cshtml" />
+    <Content Include="Areas\Admin\Views\Tag\_CreateTagForm.cshtml" />
+    <Content Include="Areas\Admin\Views\Tag\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Topic\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Topic\_CreateTopicForm.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

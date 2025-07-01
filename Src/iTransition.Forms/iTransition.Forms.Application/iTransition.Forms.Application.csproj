@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\iTransition.Forms.Domain\iTransition.Forms.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
