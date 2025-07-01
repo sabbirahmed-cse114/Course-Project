@@ -25,7 +25,8 @@ try
 
     var builder = WebApplication.CreateBuilder(args);
 
-    var connectionString = configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+        ?? throw new InvalidOperationException("Connection string not found.");
     var migrationAssembly = Assembly.GetExecutingAssembly().FullName;
 
     #region Serilog General Configuration

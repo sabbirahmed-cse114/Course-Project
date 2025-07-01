@@ -101,7 +101,6 @@ namespace iTransition.Forms.Web.Controllers
         [HttpPost, ValidateAntiForgeryToken, AllowAnonymous]
         public async Task<IActionResult> Login(SignInModel model)
         {
-            model.ReturnUrl ??= Url.Content("~/Home/Index");
 
             model.ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
@@ -110,8 +109,22 @@ namespace iTransition.Forms.Web.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    var user = await _userManager.FindByNameAsync(model.UserName);
+                    var roles = await _userManager.GetRolesAsync(user);
+
+                    if (roles.Contains("Admin"))
+                    {
+                        model.ReturnUrl = Url.Content("~/Admin/App/Index");
+                        return LocalRedirect(model.ReturnUrl);
+                    }
+                    else if (roles.Contains("User"))
+                    {
+                        model.ReturnUrl = Url.Content("~/User/Dashboard/Index");
+                        return LocalRedirect(model.ReturnUrl);
+                    }
                     return LocalRedirect(model.ReturnUrl);
                 }
+
                 if (result.IsLockedOut)
                 {
                     return RedirectToAction("Lockout");
