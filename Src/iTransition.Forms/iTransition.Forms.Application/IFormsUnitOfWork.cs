@@ -7,5 +7,6 @@ namespace iTransition.Forms.Application
     {
         public ITopicRepository TopicRepository { get; }
         public ITagRepository TagRepository { get; }
+        public ITemplateRepository TemplateRepository { get; }
     }
 }
