@@ -70,8 +70,8 @@
 
   <ItemGroup>
     <None Include="Areas\Admin\Views\Shared\_Layout.cshtml.css" />
-    <None Include="Areas\Admin\Views\Template\Create.cshtml" />
-    <None Include="Areas\Admin\Views\Template\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Template\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Template\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Tag\_UpdateTagForm.cshtml" />
     <Content Include="Areas\Admin\Views\Tag\_CreateTagForm.cshtml" />
     <Content Include="Areas\Admin\Views\Tag\Index.cshtml" />

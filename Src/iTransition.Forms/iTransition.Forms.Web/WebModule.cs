@@ -12,6 +12,14 @@ namespace iTransition.Forms.Web
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<TemplateManagementService>()
+               .As<ITemplateManagementService>()
+               .InstancePerLifetimeScope();
+
+            builder.RegisterType<TemplateRepository>()
+                .As<ITemplateRepository>()
+                .InstancePerLifetimeScope();
+
             builder.RegisterType<TagManagementService>()
                 .As<ITagManagementService>()
                 .InstancePerLifetimeScope();
