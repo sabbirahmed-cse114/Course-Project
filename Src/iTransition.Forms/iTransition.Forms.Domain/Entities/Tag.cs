@@ -10,5 +10,6 @@ namespace iTransition.Forms.Domain.Entities
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
+        public List<TemplateTag>? TemplateTags { get; set; }
     }
 }
