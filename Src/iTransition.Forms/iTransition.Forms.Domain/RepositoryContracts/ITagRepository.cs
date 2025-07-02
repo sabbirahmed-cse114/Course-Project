@@ -6,5 +6,6 @@ namespace iTransition.Forms.Domain.RepositoryContracts
     {
         bool IsTagNameDuplicate(string Name, Guid? id = null);
         Task<(IList<Tag> data, int total, int totalDisplay)> GetPagedTagsAsync(int pageIndex, int pageSize, DataTablesSearch search, string? order);
+        Task<IList<Tag>> GetOrderedTagsAsync();
     }
 }

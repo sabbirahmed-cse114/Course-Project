@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using iTransition.Forms.Application.Services;
 using iTransition.Forms.Domain.Entities;
-using iTransition.Forms.Web.Areas.Admin.Models.Topic;
+using iTransition.Forms.Web.Areas.Admin.Models.TopicModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Web;
 

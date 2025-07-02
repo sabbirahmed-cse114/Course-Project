@@ -28,5 +28,10 @@ namespace iTransition.Forms.Infrastructure.Repositories
 
             return await GetDynamicAsync(x => x.Name.Contains(searchText), order, null, pageIndex, pageSize, true);
         }
+
+        public async Task<IList<Tag>> GetOrderedTagsAsync()
+        {
+            return await GetAsync(null, x => x.OrderBy(y => y.Name), null, true);
+        }
     }
 }

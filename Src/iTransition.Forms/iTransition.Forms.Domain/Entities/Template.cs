@@ -1,4 +1,6 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
+
 namespace iTransition.Forms.Domain.Entities
 {
     public class Template : IEntity<Guid>
@@ -7,6 +9,7 @@ namespace iTransition.Forms.Domain.Entities
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        [Display(Name = "Upload Image")]
         public string? ImageUrl { get; set; }
         public bool IsPublic { get; set; }
 

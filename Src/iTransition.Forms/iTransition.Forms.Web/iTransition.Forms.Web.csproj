@@ -21,13 +21,18 @@
   <ItemGroup>
     <Compile Include="Areas\Admin\Controllers\AppController.cs" />
     <Compile Include="Areas\Admin\Controllers\TagController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TemplateController.cs" />
     <Compile Include="Areas\Admin\Controllers\TopicController.cs" />
     <Compile Include="Areas\Admin\Models\DashboardModel.cs" />
-    <Compile Include="Areas\Admin\Models\Tag\TagCreateModel.cs" />
-    <Compile Include="Areas\Admin\Models\Tag\TagListModel.cs" />
-    <Compile Include="Areas\Admin\Models\Tag\TagUpdateModel.cs" />
-    <Compile Include="Areas\Admin\Models\Topic\TopicCreateModel.cs" />
-    <Compile Include="Areas\Admin\Models\Topic\TopicListModel.cs" />
+    <Compile Include="Areas\Admin\Models\TagModels\TagCreateModel.cs" />
+    <Compile Include="Areas\Admin\Models\TagModels\TagListModel.cs" />
+    <Compile Include="Areas\Admin\Models\TagModels\TagUpdateModel.cs" />
+    <Compile Include="Areas\Admin\Models\TemplateModels\TemplateCommonModel.cs" />
+    <Compile Include="Areas\Admin\Models\TemplateModels\TemplateCreateModel.cs" />
+    <Compile Include="Areas\Admin\Models\TemplateModels\TemplateListModel.cs" />
+    <Compile Include="Areas\Admin\Models\TemplateModels\TemplateUpdateModel.cs" />
+    <Compile Include="Areas\Admin\Models\TopicModels\TopicCreateModel.cs" />
+    <Compile Include="Areas\Admin\Models\TopicModels\TopicListModel.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -65,6 +70,8 @@
 
   <ItemGroup>
     <None Include="Areas\Admin\Views\Shared\_Layout.cshtml.css" />
+    <None Include="Areas\Admin\Views\Template\Create.cshtml" />
+    <None Include="Areas\Admin\Views\Template\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Tag\_UpdateTagForm.cshtml" />
     <Content Include="Areas\Admin\Views\Tag\_CreateTagForm.cshtml" />
     <Content Include="Areas\Admin\Views\Tag\Index.cshtml" />

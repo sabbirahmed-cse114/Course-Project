@@ -15,8 +15,8 @@ namespace iTransition.Forms.Application.Services
             var isTemplateNameDuplicate = _formsUnitOfWork.TemplateRepository.IsTemplateNameDuplicate(template.Name);
             if(!isTemplateNameDuplicate)
             {
-                _formsUnitOfWork.TemplateRepository.AddAsync(template);
-                _formsUnitOfWork.SaveAsync();
+                await _formsUnitOfWork.TemplateRepository.AddAsync(template);
+                await _formsUnitOfWork.SaveAsync();
             }
             else
             {
