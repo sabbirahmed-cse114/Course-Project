@@ -6,63 +6,73 @@
 }
 
 <div class="container-fluid">
-    <div class="d-flex justify-content-center">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Create New Template</h3>
-            </div>
-            <form enctype="multipart/form-data" asp-antiforgery="true" asp-area="Admin" asp-controller="Template" asp-action="Create" method="post" id="createForm">
-                <div class="card-body">
-                    <div class="mb-3">
-                        <label asp-for="Name" class="form-label"></label>
-                        <input asp-for="Name" type="text" class="form-control" placeholder="Template Title">
-                        <span asp-validation-for="Name" class="text-danger"></span>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="mb-3">
-                                <label asp-for="TopicId" class="form-label"></label>
-                                <select asp-for="TopicId" asp-items="Model.Topics" class="form-select form-select-sm">
-                                    <option selected value="">Select a topic</option>
-                                </select>
-                                <span asp-validation-for="TopicId" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="mb-3">
-                                <label asp-for="TagId" class="form-label"></label>
-                                <select asp-for="TagId" asp-items="Model.Tags" class="form-select form-select-sm">
-                                    <option selected value="">Select a tag</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label asp-for="Description" class="form-label"></label>
-                        <input asp-for="Description" class="form-control" placeholder="Description">
-                        <span asp-validation-for="Name" class="text-danger"></span>
-                    </div>
-                    <div class="form-check mb-3">
-                        <label asp-for="IsPublic" class="form-check-label"></label>
-                        <input asp-for="IsPublic" class="form-check-input" type="checkbox">
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="d-flex">
-                        <button type="submit" name="action" value="save" class="btn btn-sm btn-outline-info px-4 me-4">Save</button>
-                        <a class="btn btn-sm btn-outline-danger px-4" asp-area="Admin" asp-controller="Template" asp-action="Index">Cancel</a>
-                    </div>
-                </div>
-            </form>
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Create New Template</h3>
         </div>
+        <form enctype="multipart/form-data" asp-antiforgery="true" asp-area="Admin" asp-controller="Template" asp-action="Create" method="post" id="createForm">
+            <div class="card-body">
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label"></label>
+                    <input asp-for="Name" type="text" class="form-control">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label"></label>
+                    <input asp-for="Description" class="form-control">
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="TopicId" class="form-label"></label>
+                    <select asp-for="TopicId" asp-items="Model.Topics" class="form-select form-select-sm">
+                        <option selected value="">Select a topic</option>
+                    </select>
+                    <span asp-validation-for="TopicId" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="TagId" class="form-label"></label>
+                    <input type="text" id="tagInput" class="form-control" placeholder="Start typing tag..." autocomplete="off" />
+                    <input type="hidden" asp-for="TagId" id="TagId" />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="IsPublic" class="form-label"></label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="IsPublic" id="radioPublic" value="true" @(Model.IsPublic ? "checked" : "") />
+                        <label class="form-check-label" for="radioPublic">Public</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="IsPublic" id="radioPrivate" value="false" @(!Model.IsPublic ? "checked" : "") />
+                        <label class="form-check-label" for="radioPrivate">Private</label>
+                    </div>         
+                    <span asp-validation-for="IsPublic" class="text-danger"></span>
+                </div>             
+            </div>
+            <div class="card-footer">
+                <div class="d-flex">
+                    <button type="submit" name="action" value="save" class="btn btn-sm btn-outline-info px-4 me-4">Save</button>
+                    <a class="btn btn-sm btn-outline-danger px-4" asp-area="Admin" asp-controller="Template" asp-action="Index">Cancel</a>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 
 @section Styles {
-    <link href="~/css/item.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker3.standalone.min.css" />
 }
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        $(function () {
+            $("#tagInput").autocomplete({
+                source: '/Admin/Template/GetTagsByAutocompleteSearch',
+                minLength: 1,
+                select: function (event, ui) {
+                    $("#TagId").val(ui.item.id);
+                }
+            });
+        });
+    </script>
 }

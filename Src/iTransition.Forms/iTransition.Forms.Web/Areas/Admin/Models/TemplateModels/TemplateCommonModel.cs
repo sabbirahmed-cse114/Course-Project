@@ -8,14 +8,20 @@ namespace iTransition.Forms.Web.Areas.Admin.Models.TemplateModels
     public class TemplateCommonModel
     {
         [Required]
+        [Display(Name = "Template Title")]
         public string Name { get; set; }
-        [Required]
-        public string Description { get; set; }
-        [Required]
-        public bool IsPublic { get; set; }
 
+        [Required]
+        [Display(Name = "Description")]
+        public string Description { get; set; }
+
+        [Required]
+        [Display(Name = "Access Type")]
+        public bool IsPublic { get; set; } = true;
+
+        [Required]
         [Display(Name = "Topics")]
-        public Guid? TopicId { get; set; }
+        public Guid TopicId { get; set; }
         public IList<SelectListItem>? Topics { get; private set; }
 
         [Display(Name = "Tags")]

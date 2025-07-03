@@ -27,6 +27,16 @@ namespace iTransition.Forms.Web.Areas.Admin.Controllers
             _tagManagementService = tagManagementService;
         }
 
+
+        [HttpGet]
+        public async Task<JsonResult> GetTagsByAutocompleteSearch(string term)
+        {
+            var tags = await _tagManagementService.GetTagListAsync();
+            var matched = tags.Where(t => t.Name.Contains(term, StringComparison.OrdinalIgnoreCase))
+                .Select(t => new { label = t.Name, id = t.Id }).ToList();
+            return Json(matched);
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -53,8 +63,23 @@ namespace iTransition.Forms.Web.Areas.Admin.Controllers
                 var template = _mapper.Map<Template>(model);
                 template.Id = Guid.NewGuid();
                 template.ImageUrl = null;
+                template.Topic = _topicManagementService.GetTopicAsync(model.TopicId).Result;
                 template.Tag = model.TagId.HasValue ? _tagManagementService.GetTagAsync(model.TagId.Value).Result : null;
-                template.Topic = model.TopicId.HasValue ? _topicManagementService.GetTopicAsync(model.TopicId.Value).Result : null;
+                if (!template.TagId.HasValue)
+                {
+                    var tagList = await _tagManagementService.GetTagListAsync();
+                    var selectedTag = tagList.FirstOrDefault(c => c.Name.Equals("Other", StringComparison.OrdinalIgnoreCase));
+                    if (selectedTag == null)
+                    {
+                        selectedTag = new Tag
+                        {
+                            Id = Guid.NewGuid(),
+                            Name = "Other"
+                        };
+                        await _tagManagementService.CreateNewTagAsync(selectedTag);
+                    }
+                    template.TagId = selectedTag.Id;
+                }
                 try
                 {
                     await _templateManagementService.CreateTemplateAsync(template);
