@@ -23,5 +23,10 @@ namespace iTransition.Forms.Application.Services
                 throw new Exception("Template is duplicate");
             }
         }
+
+        public async Task<IList<Template>> GetTopPopularTemplatesAsync(int? count = null)
+        {
+            return await _formsUnitOfWork.TemplateRepository.TopUsedTemplatesAsync(count);
+        }
     }
 }

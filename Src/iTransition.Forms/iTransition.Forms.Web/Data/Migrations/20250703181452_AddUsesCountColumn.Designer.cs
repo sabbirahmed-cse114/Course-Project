@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using iTransition.Forms.Infrastructure;
 
@@ -11,9 +12,11 @@ using iTransition.Forms.Infrastructure;
 namespace iTransition.Forms.Web.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250703181452_AddUsesCountColumn")]
+    partial class AddUsesCountColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,9 +73,6 @@ namespace iTransition.Forms.Web.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -87,13 +87,18 @@ namespace iTransition.Forms.Web.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("TagId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid?>("TopicId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("UsesCount")
-                        .HasColumnType("int");
+                    b.Property<long>("UsageCount")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TagId");
 
                     b.HasIndex("TopicId");
 
@@ -392,9 +397,15 @@ namespace iTransition.Forms.Web.Data.Migrations
 
             modelBuilder.Entity("iTransition.Forms.Domain.Entities.Template", b =>
                 {
+                    b.HasOne("iTransition.Forms.Domain.Entities.Tag", "Tag")
+                        .WithMany()
+                        .HasForeignKey("TagId");
+
                     b.HasOne("iTransition.Forms.Domain.Entities.Topic", "Topic")
                         .WithMany("Templates")
                         .HasForeignKey("TopicId");
+
+                    b.Navigation("Tag");
 
                     b.Navigation("Topic");
                 });

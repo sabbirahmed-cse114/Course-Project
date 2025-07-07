@@ -20,10 +20,12 @@
 
   <ItemGroup>
     <Compile Include="Areas\Admin\Controllers\AppController.cs" />
+    <Compile Include="Areas\Admin\Controllers\FormController.cs" />
     <Compile Include="Areas\Admin\Controllers\TagController.cs" />
     <Compile Include="Areas\Admin\Controllers\TemplateController.cs" />
     <Compile Include="Areas\Admin\Controllers\TopicController.cs" />
     <Compile Include="Areas\Admin\Models\DashboardModel.cs" />
+    <Compile Include="Areas\Admin\Models\FormModels\FormCreateModel.cs" />
     <Compile Include="Areas\Admin\Models\TagModels\TagCreateModel.cs" />
     <Compile Include="Areas\Admin\Models\TagModels\TagListModel.cs" />
     <Compile Include="Areas\Admin\Models\TagModels\TagUpdateModel.cs" />

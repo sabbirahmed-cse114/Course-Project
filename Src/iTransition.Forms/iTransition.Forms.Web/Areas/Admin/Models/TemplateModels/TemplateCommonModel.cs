@@ -24,8 +24,9 @@ namespace iTransition.Forms.Web.Areas.Admin.Models.TemplateModels
         public Guid TopicId { get; set; }
         public IList<SelectListItem>? Topics { get; private set; }
 
+        [Required]
         [Display(Name = "Tags")]
-        public Guid? TagId { get; set; }
+        public List<Guid>? TagIds { get; set; }
         public IList<SelectListItem>? Tags { get; private set; }
 
         public void SetTopics(IList<Topic> topics)

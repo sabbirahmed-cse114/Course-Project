@@ -3,6 +3,7 @@ using iTransition.Forms.Application.Services;
 using iTransition.Forms.Domain.Entities;
 using iTransition.Forms.Web.Areas.Admin.Models.TemplateModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Web;
 
 namespace iTransition.Forms.Web.Areas.Admin.Controllers
 {
@@ -15,8 +16,8 @@ namespace iTransition.Forms.Web.Areas.Admin.Controllers
         public readonly ITopicManagementService _topicManagementService;
         public readonly ITagManagementService _tagManagementService;
 
-        public TemplateController(ILogger<TemplateController> logger, 
-            IMapper mapper, ITemplateManagementService templateManagementService, 
+        public TemplateController(ILogger<TemplateController> logger,
+            IMapper mapper, ITemplateManagementService templateManagementService,
             ITopicManagementService topicManagementService,
             ITagManagementService tagManagementService)
         {
@@ -27,31 +28,29 @@ namespace iTransition.Forms.Web.Areas.Admin.Controllers
             _tagManagementService = tagManagementService;
         }
 
-
         [HttpGet]
-        public async Task<JsonResult> GetTagsByAutocompleteSearch(string term)
+        public async Task<IActionResult> Index()
         {
+            var model = new TemplateListModel();
+
+            var topics = await _topicManagementService.GetTopicListAsync();
             var tags = await _tagManagementService.GetTagListAsync();
-            var matched = tags.Where(t => t.Name.Contains(term, StringComparison.OrdinalIgnoreCase))
-                .Select(t => new { label = t.Name, id = t.Id }).ToList();
-            return Json(matched);
+            var topTemplates = await _templateManagementService.GetTopPopularTemplatesAsync(9);
+
+            model.SetTopics(topics);
+            model.SetTags(tags);
+            model.TopTemplates = topTemplates;
+
+            return View(model);
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
 
         public async Task<IActionResult> Create()
         {
             var model = new TemplateCreateModel();
 
             var topic = await _topicManagementService.GetTopicListAsync();
-            var tag = await _tagManagementService.GetTagListAsync();
-
             model.SetTopics(topic);
-            model.SetTags(tag);
-
             return View(model);
         }
 
@@ -64,21 +63,15 @@ namespace iTransition.Forms.Web.Areas.Admin.Controllers
                 template.Id = Guid.NewGuid();
                 template.ImageUrl = null;
                 template.Topic = _topicManagementService.GetTopicAsync(model.TopicId).Result;
-                template.Tag = model.TagId.HasValue ? _tagManagementService.GetTagAsync(model.TagId.Value).Result : null;
-                if (!template.TagId.HasValue)
+                template.CreatedAt = DateTime.UtcNow;
+
+                if (model.TagIds != null && model.TagIds.Any())
                 {
-                    var tagList = await _tagManagementService.GetTagListAsync();
-                    var selectedTag = tagList.FirstOrDefault(c => c.Name.Equals("Other", StringComparison.OrdinalIgnoreCase));
-                    if (selectedTag == null)
+                    template.TemplateTags = model.TagIds.Select(tagId => new TemplateTag
                     {
-                        selectedTag = new Tag
-                        {
-                            Id = Guid.NewGuid(),
-                            Name = "Other"
-                        };
-                        await _tagManagementService.CreateNewTagAsync(selectedTag);
-                    }
-                    template.TagId = selectedTag.Id;
+                        TemplateId = template.Id,
+                        TagId = tagId
+                    }).ToList();
                 }
                 try
                 {
@@ -87,7 +80,7 @@ namespace iTransition.Forms.Web.Areas.Admin.Controllers
                     return RedirectToAction("Index");
 
                 }
-                catch (Exception ex)                 
+                catch (Exception ex)
                 {
                     _logger.LogInformation(ex, "Template creation failed...");
                     TempData["ErrorMessage"] = "Failed to created tag.";
@@ -102,7 +95,16 @@ namespace iTransition.Forms.Web.Areas.Admin.Controllers
                 model.SetTopics(topic);
                 model.SetTags(tag);
                 return View(model);
-            }                
+            }
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetTagsByAutocompleteSearch(string term)
+        {
+            var tags = await _tagManagementService.GetTagListAsync();
+            var matched = tags.Where(t => t.Name.Contains(term, StringComparison.OrdinalIgnoreCase))
+                .Select(t => new { label = t.Name, id = t.Id }).ToList();
+            return Json(matched);
         }
     }
 }
