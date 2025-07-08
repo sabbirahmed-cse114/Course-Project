@@ -15,6 +15,9 @@ namespace iTransition.Forms.Web.Areas.Admin.Models.TemplateModels
         [Display(Name = "Description")]
         public string Description { get; set; }
 
+        [Display(Name = "Upload Image")]
+        public IFormFile? picture { get; set; }
+
         [Required]
         [Display(Name = "Access Type")]
         public bool IsPublic { get; set; } = true;

@@ -43,4 +43,22 @@
         selectedTags = selectedTags.filter(t => t.id !== tagId);
         renderSelectedTags();
     });
+
+    $('#imageInput').on('change', function () {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                $('#imagePreview').attr('src', e.target.result);
+                $('#removeImage').css('display', 'block');
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    $('#removeImage').on('click', function () {
+        $('#imagePreview').attr('src', '#');
+        $('#imageInput').val('');
+        $(this).hide();
+    });
 });

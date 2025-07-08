@@ -7,6 +7,7 @@ namespace iTransition.Forms.Web.Areas.Admin.Models.TemplateModels
 {
     public class TemplateListModel : DataTables
     {
+        public string? ImageUrl { get; set; }
         public IList<Template>? TopTemplates { get; set; }
         public IList<SelectListItem>? Topics { get; private set; }
         public IList<SelectListItem>? Tags { get; private set; }

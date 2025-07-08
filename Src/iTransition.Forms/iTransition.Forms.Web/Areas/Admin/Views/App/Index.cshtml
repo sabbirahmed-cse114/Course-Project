@@ -31,6 +31,15 @@
                        class="text-decoration-none text-dark">
                         <div class="card h-100 shadow-sm border-0 hover-shadow transition template-card">
                             <div class="card-body">
+                                @if (!string.IsNullOrEmpty(t.ImageUrl))
+                                {
+                                    <img src="@t.ImageUrl" alt="Template Image" class="img-fluid rounded w-100" style="height: 60px; object-fit: cover;" />
+                                }
+                                else
+                                {
+                                    <div class="d-flex justify-content-center align-items-center" style="height: 60px;">
+                                    </div>
+                                }
                             </div>
                             <div class="card-footer bg-transparent border-0 d-flex justify-content-end mt-lg-5">
                                 <a>
