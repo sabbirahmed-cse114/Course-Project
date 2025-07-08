@@ -8,7 +8,7 @@ using System.Web;
 
 namespace iTransition.Forms.Web.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("Admin"),Authorize(Roles = "Admin")]
     public class TagController : Controller
     {
         private readonly ILogger<TagController> _logger;

@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using iTransition.Forms.Application.Services;
 using iTransition.Forms.Web.Areas.Admin.Models.TemplateModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace iTransition.Forms.Web.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("Admin"),Authorize]
     public class AppController : Controller
     {
         private readonly ILogger<AppController> _logger;
@@ -26,7 +27,7 @@ namespace iTransition.Forms.Web.Areas.Admin.Controllers
             _templateManagementService = templateManagementService;
         }
 
-        [HttpGet]
+        [HttpGet, Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             var model = new TemplateListModel();

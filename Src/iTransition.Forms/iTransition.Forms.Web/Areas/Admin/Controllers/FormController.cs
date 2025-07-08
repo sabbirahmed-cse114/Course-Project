@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using iTransition.Forms.Application.Services;
-using iTransition.Forms.Web.Areas.Admin.Models.FormModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace iTransition.Forms.Web.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("Admin"),Authorize(Roles = "Admin")]
     public class FormController : Controller
     {
         public readonly ILogger<FormController> _logger;
@@ -26,19 +26,9 @@ namespace iTransition.Forms.Web.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> CreateFromTemplate(Guid templateId)
+        public async Task<IActionResult> CreateFromTemplate()
         {
-            //var template = await _templateManagementService.GetTemplateByIdAsync(templateId);
-            //if (template == null) return NotFound();
-
-            //var model = new FormCreateModel
-            //{
-            //    TemplateId = template.Id,
-            //    TopicId = template.TopicId,
-            //    TagId = template.TagId,
-            //};
-
-            return View("Create","model");
+            return View("Index");
         }
 
     }
