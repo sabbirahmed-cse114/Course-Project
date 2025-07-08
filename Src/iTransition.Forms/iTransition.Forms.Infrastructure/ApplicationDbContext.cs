@@ -61,6 +61,25 @@ namespace iTransition.Forms.Infrastructure
                 }
             );
 
+            builder.Entity<TemplateTag>()
+              .HasKey(x => new { x.TemplateId, x.TagId });
+
+            builder.Entity<TemplateTag>()
+                .HasOne(x => x.Template)
+                .WithMany(y => y.TemplateTags)
+                .HasForeignKey(z => z.TemplateId);
+
+            builder.Entity<TemplateTag>()
+               .HasOne(x => x.Tag)
+               .WithMany(y => y.TemplateTags)
+               .HasForeignKey(z => z.TagId);
+
+            builder.Entity<Template>()
+                .HasOne(x => x.Topic)
+                .WithMany(c => c.Templates)
+                .HasForeignKey(y => y.TopicId);
+
+
             builder.Entity<Topic>().HasData
             (
                 new Topic
@@ -89,6 +108,10 @@ namespace iTransition.Forms.Infrastructure
                     Name = "Other"
                 }
             );
+
+           
+
+
             builder.Entity<ApplicationUser>()
                 .HasData
                 (
@@ -127,5 +150,7 @@ namespace iTransition.Forms.Infrastructure
         }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Topic> Topics { get; set; }
+        public DbSet<Template> Templates { get; set; }
+        public DbSet<TemplateTag> TemplateTags { get; set; }
     }
 }

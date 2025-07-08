@@ -31,6 +31,16 @@ namespace iTransition.Forms.Application.Services
                 pageIndex, pageSize, search, order);
         }
 
+        public async Task<IList<Topic>> GetTopicListAsync()
+        {
+            return await _formsUnitOfWork.TopicRepository.GetOrderedTopicsAsync();
+        }
+
+        public async Task<Topic> GetTopicAsync(Guid id)
+        {
+            return await _formsUnitOfWork.TopicRepository.GetByIdAsync(id);
+        }
+
         public async Task DeleteTopicAsync(Guid id)
         {
             await _formsUnitOfWork.TopicRepository.RemoveAsync(id);

@@ -62,7 +62,6 @@ try
         .AddSignInManager<ApplicationSignInManager>()
         .AddDefaultTokenProviders();
 
-
     builder.Services.AddControllersWithViews();
 
     var app = builder.Build();

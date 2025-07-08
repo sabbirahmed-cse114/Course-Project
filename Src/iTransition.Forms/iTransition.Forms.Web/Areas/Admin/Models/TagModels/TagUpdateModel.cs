@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace iTransition.Forms.Web.Areas.Admin.Models.Tag
+namespace iTransition.Forms.Web.Areas.Admin.Models.TagModels
 {
     public class TagUpdateModel
     {
