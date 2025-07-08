@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace iTransition.Forms.Web.Areas.Admin.Models.Tag
+namespace iTransition.Forms.Web.Areas.Admin.Models.TopicModels
 {
-    public class TagCreateModel
+    public class TopicCreateModel
     {
         [Required]
         public string Name { get; set; }

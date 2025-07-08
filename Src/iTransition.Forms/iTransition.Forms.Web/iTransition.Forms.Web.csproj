@@ -20,14 +20,21 @@
 
   <ItemGroup>
     <Compile Include="Areas\Admin\Controllers\AppController.cs" />
+    <Compile Include="Areas\Admin\Controllers\FormController.cs" />
     <Compile Include="Areas\Admin\Controllers\TagController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TemplateController.cs" />
     <Compile Include="Areas\Admin\Controllers\TopicController.cs" />
     <Compile Include="Areas\Admin\Models\DashboardModel.cs" />
-    <Compile Include="Areas\Admin\Models\Tag\TagCreateModel.cs" />
-    <Compile Include="Areas\Admin\Models\Tag\TagListModel.cs" />
-    <Compile Include="Areas\Admin\Models\Tag\TagUpdateModel.cs" />
-    <Compile Include="Areas\Admin\Models\Topic\TopicCreateModel.cs" />
-    <Compile Include="Areas\Admin\Models\Topic\TopicListModel.cs" />
+    <Compile Include="Areas\Admin\Models\FormModels\FormCreateModel.cs" />
+    <Compile Include="Areas\Admin\Models\TagModels\TagCreateModel.cs" />
+    <Compile Include="Areas\Admin\Models\TagModels\TagListModel.cs" />
+    <Compile Include="Areas\Admin\Models\TagModels\TagUpdateModel.cs" />
+    <Compile Include="Areas\Admin\Models\TemplateModels\TemplateCommonModel.cs" />
+    <Compile Include="Areas\Admin\Models\TemplateModels\TemplateCreateModel.cs" />
+    <Compile Include="Areas\Admin\Models\TemplateModels\TemplateListModel.cs" />
+    <Compile Include="Areas\Admin\Models\TemplateModels\TemplateUpdateModel.cs" />
+    <Compile Include="Areas\Admin\Models\TopicModels\TopicCreateModel.cs" />
+    <Compile Include="Areas\Admin\Models\TopicModels\TopicListModel.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -48,6 +55,7 @@
   <ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="10.0.0" />
     <PackageReference Include="AutoMapper" Version="14.0.0" />
+    <PackageReference Include="CloudinaryDotNet" Version="1.27.6" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.17" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.17" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.17" />
@@ -65,6 +73,8 @@
 
   <ItemGroup>
     <None Include="Areas\Admin\Views\Shared\_Layout.cshtml.css" />
+    <Content Include="Areas\Admin\Views\Template\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Template\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Tag\_UpdateTagForm.cshtml" />
     <Content Include="Areas\Admin\Views\Tag\_CreateTagForm.cshtml" />
     <Content Include="Areas\Admin\Views\Tag\Index.cshtml" />

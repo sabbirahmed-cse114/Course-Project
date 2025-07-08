@@ -64,6 +64,57 @@ namespace iTransition.Forms.Web.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("iTransition.Forms.Domain.Entities.Template", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsPublic")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("TopicId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("UsesCount")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TopicId");
+
+                    b.ToTable("Templates");
+                });
+
+            modelBuilder.Entity("iTransition.Forms.Domain.Entities.TemplateTag", b =>
+                {
+                    b.Property<Guid>("TemplateId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TagId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("TemplateId", "TagId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("TemplateTags");
+                });
+
             modelBuilder.Entity("iTransition.Forms.Domain.Entities.Topic", b =>
                 {
                     b.Property<Guid>("Id")
@@ -339,6 +390,34 @@ namespace iTransition.Forms.Web.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("iTransition.Forms.Domain.Entities.Template", b =>
+                {
+                    b.HasOne("iTransition.Forms.Domain.Entities.Topic", "Topic")
+                        .WithMany("Templates")
+                        .HasForeignKey("TopicId");
+
+                    b.Navigation("Topic");
+                });
+
+            modelBuilder.Entity("iTransition.Forms.Domain.Entities.TemplateTag", b =>
+                {
+                    b.HasOne("iTransition.Forms.Domain.Entities.Tag", "Tag")
+                        .WithMany("TemplateTags")
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("iTransition.Forms.Domain.Entities.Template", "Template")
+                        .WithMany("TemplateTags")
+                        .HasForeignKey("TemplateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Tag");
+
+                    b.Navigation("Template");
+                });
+
             modelBuilder.Entity("iTransition.Forms.Infrastructure.Identity.ApplicationRoleClaim", b =>
                 {
                     b.HasOne("iTransition.Forms.Infrastructure.Identity.ApplicationRole", null)
@@ -388,6 +467,21 @@ namespace iTransition.Forms.Web.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("iTransition.Forms.Domain.Entities.Tag", b =>
+                {
+                    b.Navigation("TemplateTags");
+                });
+
+            modelBuilder.Entity("iTransition.Forms.Domain.Entities.Template", b =>
+                {
+                    b.Navigation("TemplateTags");
+                });
+
+            modelBuilder.Entity("iTransition.Forms.Domain.Entities.Topic", b =>
+                {
+                    b.Navigation("Templates");
                 });
 #pragma warning restore 612, 618
         }

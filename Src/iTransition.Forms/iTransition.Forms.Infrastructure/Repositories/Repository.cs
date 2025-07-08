@@ -116,5 +116,42 @@ namespace iTransition.Forms.Infrastructure.Repositories
                 _dbSet.Remove(entityToDelete);
             });
         }
+
+
+        public virtual async Task<IList<TEntity>> GetAsync(
+            Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null,
+            bool isTrackingOff = false)
+        {
+            IQueryable<TEntity> query = _dbSet;
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            if (include != null)
+                query = include(query);
+
+            if (orderBy != null)
+            {
+                var result = orderBy(query);
+
+                if (isTrackingOff)
+                    return await result.AsNoTracking().ToListAsync();
+                else
+                    return await result.ToListAsync();
+            }
+            else
+            {
+                if (isTrackingOff)
+                    return await query.AsNoTracking().ToListAsync();
+                else
+                    return await query.ToListAsync();
+            }
+        }
+
+
     }
 }

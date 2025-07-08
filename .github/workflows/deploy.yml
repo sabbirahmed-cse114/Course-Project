@@ -27,6 +27,14 @@ jobs:
         $content = $content -replace '\$\{DB_CONNECTION\}', '${{ secrets.DB_CONNECTION }}'
         Set-Content -Path Src/iTransition.Forms/iTransition.Forms.Web/appsettings.Production.json -Value $content
 
+    - name: Replace Cloudinary secrets in appsettings.Production.json
+      run: |
+        (Get-Content Src/iTransition.Forms/iTransition.Forms.Web/appsettings.Production.json) `
+        -replace '\$\{CLOUDINARY_CLOUDNAME\}', '${{ secrets.CLOUDINARY_CLOUDNAME }}' `
+        -replace '\$\{CLOUDINARY_APIKEY\}', '${{ secrets.CLOUDINARY_APIKEY }}' `
+        -replace '\$\{CLOUDINARY_APISECRET\}', '${{ secrets.CLOUDINARY_APISECRET }}' |
+        Set-Content -Path Src/iTransition.Forms/iTransition.Forms.Web/appsettings.Production.json
+
     - name: Build project
       run: dotnet build Src/iTransition.Forms/iTransition.Forms.sln --configuration Release
 

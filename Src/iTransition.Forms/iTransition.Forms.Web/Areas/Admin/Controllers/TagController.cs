@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
 using iTransition.Forms.Application.Services;
 using iTransition.Forms.Domain.Entities;
-using iTransition.Forms.Web.Areas.Admin.Models.Tag;
+using iTransition.Forms.Web.Areas.Admin.Models.TagModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Web;
 
 namespace iTransition.Forms.Web.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("Admin"),Authorize(Roles = "Admin")]
     public class TagController : Controller
     {
         private readonly ILogger<TagController> _logger;

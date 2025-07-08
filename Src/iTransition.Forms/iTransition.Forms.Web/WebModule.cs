@@ -5,6 +5,7 @@ using iTransition.Forms.Domain.RepositoryContracts;
 using iTransition.Forms.Infrastructure;
 using iTransition.Forms.Infrastructure.Repositories;
 using iTransition.Forms.Infrastructure.UnitOfWorks;
+using iTransition.Forms.Infrastructure.Utilities;
 
 namespace iTransition.Forms.Web
 {
@@ -12,6 +13,18 @@ namespace iTransition.Forms.Web
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<ImageServiceUtility>()
+                .As<IImageServiceUtility>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<TemplateManagementService>()
+               .As<ITemplateManagementService>()
+               .InstancePerLifetimeScope();
+
+            builder.RegisterType<TemplateRepository>()
+                .As<ITemplateRepository>()
+                .InstancePerLifetimeScope();
+
             builder.RegisterType<TagManagementService>()
                 .As<ITagManagementService>()
                 .InstancePerLifetimeScope();

@@ -1,5 +1,5 @@
-﻿using System.Data.Common;
-using iTransition.Forms.Domain;
+﻿using iTransition.Forms.Domain;
+using System.Data.Common;
 
 namespace iTransition.Forms.Infrastructure.Utilities
 {
@@ -12,6 +12,6 @@ namespace iTransition.Forms.Infrastructure.Utilities
         {
             _connection = connection;
             _timeout = timeout;
-        }
+        }   
     }
 }

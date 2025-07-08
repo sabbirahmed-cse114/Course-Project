@@ -31,6 +31,11 @@ namespace iTransition.Forms.Application.Services
                 pageIndex, pageSize, search, order);
         }
 
+        public async Task<IList<Tag>> GetTagListAsync()
+        {
+            return await _formsUnitOfWork.TagRepository.GetOrderedTagsAsync();
+        }
+
         public async Task<Tag> GetTagAsync(Guid id)
         {
             return await _formsUnitOfWork.TagRepository.GetByIdAsync(id);
