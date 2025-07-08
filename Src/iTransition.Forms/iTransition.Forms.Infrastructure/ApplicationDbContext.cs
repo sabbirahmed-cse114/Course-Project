@@ -122,6 +122,7 @@ namespace iTransition.Forms.Infrastructure
                         NormalizedUserName = "ADMIN",
                         PasswordHash = "AQAAAAIAAYagAAAAEJvlP7iT7x94GkCsdqJRk0qGdGTywCXDjEP57/J0lodU+Z2mFSPoU2Trb20dkgYRQA==",
                         FullName = "Admin",
+                        IsBlocked = false,
                         SecurityStamp = "354FC657-CA80-458A-8719-ED65269683AD",
                         ConcurrencyStamp = "2B157DA1-B4A6-4CAD-8CCE-F5BD6CB1B9AB"
                     }
@@ -146,6 +147,11 @@ namespace iTransition.Forms.Infrastructure
                         UserId = Guid.Parse("41c1f025-c383-44bb-99d3-64a93dc932f9")
                     }
                 );
+
+            builder.Entity<ApplicationUser>()
+                .HasIndex(u => u.Email)
+                .IsUnique();
+
             base.OnModelCreating(builder);
         }
         public DbSet<Tag> Tags { get; set; }

@@ -7,6 +7,7 @@ namespace iTransition.Forms.Web.Models
     {
         [Required, EmailAddress]
         public string Email { get; set; }
+
         [Required, Display(Name = "User name")]
         public string UserName { get; set; }
 

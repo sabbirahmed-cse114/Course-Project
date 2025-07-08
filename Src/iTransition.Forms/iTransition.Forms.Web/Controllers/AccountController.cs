@@ -46,9 +46,15 @@ namespace iTransition.Forms.Web.Controllers
             if (ModelState.IsValid)
             {
                 var existingUser = await _userManager.FindByNameAsync(model.UserName);
+                var existingEmail = await _userManager.FindByEmailAsync(model.Email);                
                 if (existingUser != null)
                 {
                     ModelState.AddModelError("UserName", "This username already exists.");
+                    return View(model);
+                }
+                if (existingEmail != null)
+                {
+                    ModelState.AddModelError("Email", "This email already exists.");
                     return View(model);
                 }
 
@@ -57,6 +63,7 @@ namespace iTransition.Forms.Web.Controllers
                     UserName = model.UserName,
                     Email = model.Email,
                     FullName = model.FirstName + " " + model.LastName,
+                    IsBlocked = false
                 };
 
                 var result = await _userManager.CreateAsync(user, model.Password);
@@ -110,19 +117,28 @@ namespace iTransition.Forms.Web.Controllers
                 if (result.Succeeded)
                 {
                     var user = await _userManager.FindByNameAsync(model.UserName);
-                    var roles = await _userManager.GetRolesAsync(user);
+                    if (user.IsBlocked == false)
+                    {
+                        var roles = await _userManager.GetRolesAsync(user);
 
-                    if (roles.Contains("Admin"))
-                    {
-                        model.ReturnUrl = Url.Content("~/Admin/App/Index");
+                        if (roles.Contains("Admin"))
+                        {
+                            model.ReturnUrl = Url.Content("~/Admin/App/Index");
+                            return LocalRedirect(model.ReturnUrl);
+                        }
+                        else if (roles.Contains("User"))
+                        {
+                            model.ReturnUrl = Url.Content("~/User/Dashboard/Index");
+                            return LocalRedirect(model.ReturnUrl);
+                        }
                         return LocalRedirect(model.ReturnUrl);
                     }
-                    else if (roles.Contains("User"))
+                    else 
                     {
-                        model.ReturnUrl = Url.Content("~/User/Dashboard/Index");
-                        return LocalRedirect(model.ReturnUrl);
+                        ModelState.AddModelError(string.Empty, "Your account is blocked.");
+                        return View(model);
                     }
-                    return LocalRedirect(model.ReturnUrl);
+                        
                 }
 
                 if (result.IsLockedOut)
